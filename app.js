@@ -29,13 +29,14 @@ app.use(express.json());
 //     console.log('example of middleware');
 // });
 //you have the ability to create routes
-app.get('/',(req,res)=>{
-    res.send('lets monetize dinospace');
-} )
+
 //authentication module
 const authRoutes = require('./routes/auth');
 app.use('/auth',authRoutes);
 
+//the blog posting module
+const blogPostingRoutes = require('./routes/blogs');
+app.use('/blog',blogPostingRoutes);
 
 //connect to the db 
 mongoose.connect(process.env.DB_CONNECTION,
