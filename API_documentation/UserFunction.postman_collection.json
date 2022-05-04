@@ -160,6 +160,81 @@
 				"description": "This API deletes the comment that a logged in user have commented.\r\n\r\n- Put the id of the comment that needs to be deleted. \r\n- send the *auth-token* as the header\r\n\r\nA user can delete his own commnet but cannot delete the comment of posts where he is the author. A user can also not edit his comment. This is to prevent the spread of **misinformation**"
 			},
 			"response": []
+		},
+		{
+			"name": "Get rating of a user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzJkNTMwMTAxYmIwYmQ0MDFmZmE4YyIsIm5hbWUiOiJEdW1ibGVkb3JlMyIsImVtYWlsIjoiOTFAZ21haWwuY29tIiwiaWF0IjoxNjUxNjk0MDMwfQ.AI9iG0KHhKxL85HWzLvmWb025YBpwXkc1GAJZsl8pbc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/rating/6272d53c101bb0bd401ffa8f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"rating",
+						"6272d53c101bb0bd401ffa8f"
+					]
+				},
+				"description": "The API gets the rating of a particular user\r\n\r\n**The API needs-**\r\n- The userID of the user whose rating needs to be fetched.Send the ID as paramater value\r\n\r\nThe route is **not protected**. \r\n\r\nThe response will send-\r\n- \"_id\" : id of the user\r\n- \"rating\" : rating of the user"
+			},
+			"response": []
+		},
+		{
+			"name": "rating a user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2OTY1ODl9.66rrjuVSrv-TEEqzBGlJpCEjtIc9sgSSJ9y4MgApjdU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rating\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/rating/626ee72f1b66abe065cccac1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"rating",
+						"626ee72f1b66abe065cccac1"
+					]
+				},
+				"description": "This API adds rating to particular user\n\n**The API needs the following info**\n- Pass the user that's been rated as link param \n- This is a **protected** route. So the rater's id will be collected from there.\n- The request body will consist of one single attribute\n- *rating:* The rating the raters want to give. This validation needs to be done in frontend according to highest possible rating value\n\n**The API returns**\n- *rating added* if the rating is added successfully\n- *already rated* if the rater has already rated that user.\n- *cannot rate yourself* if anybody try to rate himself"
+			},
+			"response": []
 		}
 	]
 }
