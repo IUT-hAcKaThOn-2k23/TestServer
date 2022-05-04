@@ -11,19 +11,24 @@ const ratingfunc=require('../controller/rating');
 routers.post('/:id',verifyToken,async(req,res)=>{
     try{
         const user = await RatingModel.findOne({
-            ratersID: req.user.id
+            ratersID: req.user.id,
+            userID: req.params.id
         })
-        if(user.userID!=req.params.id){
-        const rating=new RatingModel({
-            ratersID:req.user.id,
-            userID:req.params.id,
-            rating:req.body.rating
+        if(user){
+            res.json({message:"already rated"});
+        }
+        else if(req.user.id!=req.params.id){
+                const rating=new RatingModel({
+                ratersID:req.user.id,
+                userID:req.params.id,
+                rating:req.body.rating
         });
-        await rating.save();
-        res.json({message:"rating added"});
+            await rating.save();
+            res.json({message:"rating added"});
     }
+    
     else{
-        res.json({message:"already rated"});
+        res.json({message:"cannot rate yourself"});
     }
 } 
   
