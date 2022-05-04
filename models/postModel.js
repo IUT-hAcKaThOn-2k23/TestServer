@@ -16,6 +16,12 @@ const PostSchema = mongoose.Schema({
     }],
     content:{
         type: String
+    },
+    like:{
+        type: Number
+    },
+    dislike:{
+        type: Number
     }
 });
 module.exports = mongoose.model('Posts', PostSchema);
