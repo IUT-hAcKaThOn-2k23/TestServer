@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "915b757a-7bf6-4b52-a3e0-0fc3e461ef91",
+		"name": "UserFunction",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all the blogs of logged in user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NzM0MDR9.dsjmbL-3pBK-BthU4Jrted0N3si7caIPRhqyHIbI34E",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/user/626ee72f1b66abe065cccac1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"626ee72f1b66abe065cccac1"
+					]
+				},
+				"description": "All the blogs posted by a logged user can be seen here.\n\n**The API needs following info**\n-  Pass the userID of a particular user as a routing parameter.\n- The API is protected. So send the **auth-token** as header.\n- The API can be used to retrieve one's personally posted blogs."
+			},
+			"response": []
+		},
+		{
+			"name": "Commenting on a post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NzM0MDR9.dsjmbL-3pBK-BthU4Jrted0N3si7caIPRhqyHIbI34E",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\":\"nice content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/user/comment/626efe65d542247035e26bb2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"comment",
+						"626efe65d542247035e26bb2"
+					]
+				},
+				"description": "Use this API to add comment to the post.\n\n**The API requires following data**\n- Send the postID where the comment needs to be added as parameter of route.\n- As the request body send the comment body only under the *comment* attribute\n-Like dislike and report will be updated by other API\n\nReturns the msg \"Comment added\" after the successful addition of it."
+			},
+			"response": []
+		},
+		{
+			"name": "Reporting a comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NzM0MDR9.dsjmbL-3pBK-BthU4Jrted0N3si7caIPRhqyHIbI34E",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/user/report/62729a37464d4875262b7f20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"report",
+						"62729a37464d4875262b7f20"
+					]
+				},
+				"description": "Just call this API with the commnet id to report as routing parameter. **No body is required**"
+			},
+			"response": []
+		},
+		{
+			"name": "Reacting on a comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NzM0MDR9.dsjmbL-3pBK-BthU4Jrted0N3si7caIPRhqyHIbI34E",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"like\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/user/react/62729a37464d4875262b7f20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"react",
+						"62729a37464d4875262b7f20"
+					]
+				},
+				"description": "Call this API to update the react count of a comment.\n\n**Send the boolean value of the corresponding action as body**\n\nThis is a protected route. So remember to add **auth-token** as request header"
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting a comment",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NzM0MDR9.dsjmbL-3pBK-BthU4Jrted0N3si7caIPRhqyHIbI34E",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/user/62729a37464d4875262b7f20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"62729a37464d4875262b7f20"
+					]
+				},
+				"description": "This API deletes the comment that a logged in user have commented.\r\n\r\n- Put the id of the comment that needs to be deleted. \r\n- send the *auth-token* as the header\r\n\r\nA user can delete his own commnet but cannot delete the comment of posts where he is the author. A user can also not edit his comment. This is to prevent the spread of **misinformation**"
+			},
+			"response": []
+		}
+	]
+}

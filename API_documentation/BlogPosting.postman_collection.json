@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "b9ea7e73-f4db-41a4-bbda-090d4a113c5c",
+		"name": "BlogPosting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all the unprotected Blog",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/blog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog"
+					]
+				},
+				"description": "This is the API to get all the bogs that doesn't require signing in. \n\nThe response is an array of Blog objects."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5001/blog",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NTMxMDF9.-itIMIRVjGoioXnVn4Iqjt0mLjBs2J2e4YmGnGNIdD0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userID\" : \"626ee72f1b66abe065cccac1\",\r\n\"userEmail\" : \"73@gmail.com\",\r\n\"title\":\"week days\",\r\n\"tags\":[\"Romantic\"],\r\n\"content\":\"blah blah blah\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/blog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog"
+					]
+				},
+				"description": "The API to save a post in the database\n\n**The request body should consist:**\n- userID: The ID of the user who is publishing the post\n- userEmail: THe mail of the user who is publishing the post\n-title: Title if the blog\n-tags: A array of tags\n-content: The actual content of the array\n-like: **This is not needed in the req body. Will be updtaed by anoher API**\n-dislike: Same as like."
+			},
+			"response": []
+		},
+		{
+			"name": "Getting Blog by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/blog/627255b4ecde69630bec846d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog",
+						"627255b4ecde69630bec846d"
+					]
+				},
+				"description": "This is the API to call when a specific blog is required.\r\nSimply pass the id of the blog as the route parameter and the response will be the whole blog object.\r\nIf not found null will be sent."
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieving the comments on a blog post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/blog/comments/626efe65d542247035e26bb2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog",
+						"comments",
+						"626efe65d542247035e26bb2"
+					]
+				},
+				"description": "The api si used to get all the comments of a specific post\n\n**Send the blog post id as a routing parameter**\n\nIt will return all the commnet objects of that specific post"
+			},
+			"response": []
+		}
+	]
+}

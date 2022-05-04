@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "f39f7b23-de26-44bc-90ea-484a6b3d23d3",
+		"name": "BlogManipulation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Updating Like/dislike",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NTMxMDF9.-itIMIRVjGoioXnVn4Iqjt0mLjBs2J2e4YmGnGNIdD0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"like\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/blog/react/627255b4ecde69630bec846d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog",
+						"react",
+						"627255b4ecde69630bec846d"
+					]
+				},
+				"description": "The api to update the like and dislike count of a post.\n**The request requires two information**\n- Pass the id of the blog whose like dislike count needs to be updated\n-Pass the boolean value of which needs to be updated\n\n**\"like\":true**\n\nFor the like number to be updated\n\n**\"dislike\":true**\n\nFor the dislike to be updated.\n\nThe API returns the blog post with the updated like count to reuse in the frontend."
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting a blog",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NTMxMDF9.-itIMIRVjGoioXnVn4Iqjt0mLjBs2J2e4YmGnGNIdD0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/blog/627255b4ecde69630bec846d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog",
+						"627255b4ecde69630bec846d"
+					]
+				},
+				"description": "This API takes the id of a blog to delete it.\n\n- The API takes the id of the post that needs to be deleted as a route paramete.\n-This is a **protected route**. So header should include \"auth-token\"\n-If the auth-token is verified, a user object will be created with in request.\n-The API is designed in such a way that a person can only delet if the post was his.\n\n**Response upon successful deletion**\n\nA message will be sent - \"post deleted\"\n\n**Response upon ussuccessful deletion**\n\nA message will be sent - \"post not found or you are not authorized\""
+			},
+			"response": []
+		},
+		{
+			"name": "Editing a blog",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmVlNzJmMWI2NmFiZTA2NWNjY2FjMSIsIm5hbWUiOiJIZWRndWluIiwiZW1haWwiOiI3M0BnbWFpbC5jb20iLCJpYXQiOjE2NTE2NzE5MjN9.az5ig7q8H80mxCZOUDvPhpF_QfiaM4XcGC86HBVddX0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"The head company\",\r\n    \"content\":\"blah blah 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/blog/626efe65d542247035e26bb2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog",
+						"626efe65d542247035e26bb2"
+					]
+				},
+				"description": "Call this API to edit a particular blog\n\n**The API request requires :**\n\n- Pass the id of a blog in the routing parameter \n- title: The changed title of the blog. Ifnot changed send the original one. **Do not send any null value**. That wouldn't throw error rather. save it.\n- content: The changed body of the content.**Do not send any null value**. That wouldn't throw error rather  save it.\n- The api takes into accont that only owner can edit his post. So Do remember to send **auth-token** in header"
+			},
+			"response": []
+		}
+	]
+}
