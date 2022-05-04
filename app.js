@@ -42,6 +42,10 @@ app.use('/blog',blogPostingRoutes);
 const userFunc = require('./routes/userFunctions');
 app.use('/user',userFunc);
 
+//rating of an user
+const ratingFunc = require('./routes/ratingFunc');
+app.use('/rating',ratingFunc);
+
 //connect to the db 
 mongoose.connect(process.env.DB_CONNECTION,
 {useNewUrlParser: true},
