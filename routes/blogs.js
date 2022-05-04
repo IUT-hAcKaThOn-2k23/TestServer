@@ -75,12 +75,12 @@ routers.get('/:id',async(req,res)=>{
 routers.delete('/:id',verifyToken,async(req,res)=>{
     try{
         const post=await PostModel.findById(req.params.id);
-        if(post.userID==req.body.userID){
+        if(post.userID==req.user.id){
             post.remove();
             res.json({message:"post deleted"});
         }
         else{
-            res.json({message:"post not found"});
+            res.json({message:"post not found or you are not authorizeda"});
         }
     }
     catch(err){
@@ -91,7 +91,7 @@ routers.delete('/:id',verifyToken,async(req,res)=>{
 routers.patch('/:id',verifyToken,async(req,res)=>{
     try{
         const post=await PostModel.findById(req.params.id);
-        if(post){
+        if(post.userID==req.user.id){
             post.title=req.body.title;
             post.content=req.body.content;
             post.save();
@@ -105,16 +105,7 @@ routers.patch('/:id',verifyToken,async(req,res)=>{
         res.json({message:err});
     }
 });
-//getting all the blogs of a user
-routers.get('/user/:id',verifyToken,async(req,res)=>{
-    try{
-        const post=await PostModel.find({userID:req.params.id});
-        res.json(post);
-    }
-    catch(err){
-        res.json({message:err});
-    }
-});
+
 //searching a blog by title
 routers.get('/search/:title',async(req,res)=>{
     try{
@@ -125,14 +116,14 @@ routers.get('/search/:title',async(req,res)=>{
         res.json({message:err});
     }
 });
-//this search is implemented for the search bar..the api needs to be called
+//this search is implemented for the search bar.The api needs to be called
 //repeatedly to get character by character results
 routers.post('/search',async(req,res)=>{
     //const search=req.body.search;
     console.log(req.body.queryObj);
-    let titlePattern = new RegExp("^" + req.body.query) ;
+    let titlePattern = new RegExp("^" + req.body.query );
     try{
-        const posts=await PostModel.find({name:{$regex: titlePattern, $options: 'i'}})
+        const posts=await PostModel.find({title:{$regex: titlePattern, $options: 'i'}})
         .select('title');
         res.json(posts);
     }

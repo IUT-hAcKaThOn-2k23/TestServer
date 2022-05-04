@@ -38,6 +38,10 @@ app.use('/auth',authRoutes);
 const blogPostingRoutes = require('./routes/blogs');
 app.use('/blog',blogPostingRoutes);
 
+//the user valued functions
+const userFunc = require('./routes/userFunctions');
+app.use('/user',userFunc);
+
 //connect to the db 
 mongoose.connect(process.env.DB_CONNECTION,
 {useNewUrlParser: true},

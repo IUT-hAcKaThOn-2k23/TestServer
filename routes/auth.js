@@ -8,7 +8,7 @@ require('dotenv').config();
 //logging in
 routers.post('/login',async(req,res)=>{
     try{
-        console.log(req.body);
+        //console.log(req.body);
         const user = await Usermodel.findOne({
             email: req.body.email
         })
