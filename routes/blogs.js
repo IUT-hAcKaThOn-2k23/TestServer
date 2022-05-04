@@ -4,6 +4,7 @@ const PostModel=require('../models/postModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../controller/verifyToken');
+const CommentModel=require('../models/commentModel');
 
 //posting a blog. This route is protected by verifyToken middleware
 routers.post('/',verifyToken,async(req,res)=>{
@@ -131,5 +132,17 @@ routers.post('/search',async(req,res)=>{
         res.json({message:err});
     }
 });
+
+//Get all the comments of a post
+routers.get('/comments/:id',async(req,res)=>{
+    try{
+        const comment=await CommentModel.find({postID:req.params.id});
+        res.json(comment);
+    }
+    catch(err){
+        res.json({message:err});
+    }
+}
+);
 
 module.exports=routers;

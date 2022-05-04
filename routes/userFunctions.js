@@ -56,4 +56,37 @@ routers.post('/react/:id',verifyToken,async(req,res)=>{
     }
 });
 
+//report a comment
+routers.post('/report/:id',verifyToken,async(req,res)=>{
+    try{
+        const comment=await CommentModel.findById(req.params.id);
+        comment.reports+=1;
+        await comment.save();
+        res.json({message:"report added"});
+    }
+    catch(err){
+        res.json({message:err});
+    }
+});
+
+//deleting a comment
+routers.delete('/:id',verifyToken,async(req,res)=>{
+    try{
+        const comment=await CommentModel.findById(req.params.id);
+        if(comment.userID==req.user.id){
+            comment.remove();
+            res.json({message:"comment deleted"});
+        }
+        else{
+            res.json({message:"comment not found or you are not authorized"});
+        }
+    }
+    catch(err){
+        res.json({message:err});
+    }
+}
+);
+
+
+
 module.exports=routers;
