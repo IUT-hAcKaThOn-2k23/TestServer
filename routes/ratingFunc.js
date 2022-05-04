@@ -38,11 +38,16 @@ routers.get('/:id',async(req,res)=>{
     try{ 
         const posts=await RatingModel.aggregate([
                 {$group: 
-                    {_id: req.params.id,
+                    {_id: "$userID",
                     rating: {$avg: "$rating"}
                     }
                 }]);
-        res.json(posts);
+        posts.forEach(element => {
+            if(element._id==req.params.id){
+                res.json(element);
+            }
+        });
+        //res.json(posts);
         console.log(posts);
         
     } catch(err){
