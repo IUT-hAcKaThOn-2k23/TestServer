@@ -75,7 +75,7 @@ routers.get('/:id',async(req,res)=>{
 routers.delete('/:id',verifyToken,async(req,res)=>{
     try{
         const post=await PostModel.findById(req.params.id);
-        if(post){
+        if(post.userID==req.body.userID){
             post.remove();
             res.json({message:"post deleted"});
         }
