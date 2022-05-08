@@ -40,6 +40,23 @@ routers.get('/',async(req,res)=>{
     }
     
 });
+
+//getting blogs by pagination
+routers.get('/:page',async(req,res)=>{
+    try{
+        const posts=await PostModel.aggregate([
+            {$sort: {like: -1}},
+            {$skip: (req.params.page-1)*5},
+            {$limit: 5}
+        ]);
+        res.json(posts);
+    }
+    catch(err){
+        res.json({message:err});
+    }
+}
+);
+
 //updating likes and dislikes on blog
 routers.patch('/react/:id',verifyToken,async(req,res)=>{
     try{

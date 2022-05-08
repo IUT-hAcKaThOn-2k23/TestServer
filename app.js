@@ -46,6 +46,10 @@ app.use('/user',userFunc);
 const ratingFunc = require('./routes/ratingFunc');
 app.use('/rating',ratingFunc);
 
+//searchings
+const searchFunc = require('./routes/search');
+app.use('/search',searchFunc);
+
 //connect to the db 
 mongoose.connect(process.env.DB_CONNECTION,
 {useNewUrlParser: true},
