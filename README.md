@@ -18,6 +18,8 @@ basic APIs for a simple Blog site.
 
 [Auth](https://documenter.getpostman.com/view/17979225/UyxbppUZ)
 
+[Search](https://documenter.getpostman.com/view/17979225/UyxdLpec)
+
 
 ## Installation
 
