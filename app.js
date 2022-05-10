@@ -50,6 +50,10 @@ app.use('/rating',ratingFunc);
 const searchFunc = require('./routes/search');
 app.use('/search',searchFunc);
 
+//moderators functions
+const moderatorFunc = require('./routes/moderators');
+app.use('/moderator',moderatorFunc);
+
 //connect to the db 
 mongoose.connect(process.env.DB_CONNECTION,
 {useNewUrlParser: true},
