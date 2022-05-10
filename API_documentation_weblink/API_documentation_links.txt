@@ -4,3 +4,4 @@ BlogPosting:    	https://documenter.getpostman.com/view/17979225/UyxbppQF
 BlogManipulation: https://documenter.getpostman.com/view/17979225/UyxbppUY
 Auth:			https://documenter.getpostman.com/view/17979225/UyxbppUZ
 Search:           https://documenter.getpostman.com/view/17979225/UyxdLpec
+Moderator:        https://documenter.getpostman.com/view/17979225/UyxeqUy7
