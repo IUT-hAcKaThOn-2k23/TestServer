@@ -20,6 +20,9 @@ basic APIs for a simple Blog site.
 
 [Search](https://documenter.getpostman.com/view/17979225/UyxdLpec)
 
+[Moderator](https://documenter.getpostman.com/view/17979225/UyxeqUy7)
+
+
 
 ## Installation
 
