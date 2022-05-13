@@ -64,6 +64,8 @@ To run this project, you will need to add the following environment variables to
 
 `TOKEN` : Provide a secret token for the JWT encryption
 
+`ADMINPASS`: use this to open the initial account for moderator.
+
 
 ## API Features
 
