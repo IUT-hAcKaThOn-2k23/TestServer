@@ -83,4 +83,5 @@ To run this project, you will need to add the following environment variables to
 - Rating a user and a convinent rating method. 
 - Moderator user role. Moderator can edit content of blogs
 - OTP verification for moderator
+- A post will be deleted if three different moderators agree to delete it
 
