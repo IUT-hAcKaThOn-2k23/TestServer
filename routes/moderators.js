@@ -7,6 +7,7 @@ const verifyToken = require('../controller/verifyToken');
 const CommentModel=require('../models/commentModel');
 const OTPModel=require('../models/otpCache');
 const ModeratorModel=require('../models/moderatorModel');
+const DeleteModel=require('../models/deleteRequest');
 const verifyModerator = require('../controller/verifyModerator');
 require('dotenv').config();
 
@@ -163,5 +164,65 @@ routers.post('/updatePost',verifyModerator,async(req,res)=>{
     }
 }
 );
+
+//deleting post by moderator
+routers.post('/deleteReq',verifyModerator,async(req,res)=>{
+    try{
+        const post=await DeleteModel.findOne({postID:req.body.id});
+        if(post.deleteReqCount<3){
+            post.deleteReqCount++;
+           post.modsMails.push(req.mod.email);
+            post.save()
+            .then(data => {
+                res.json(data);
+            }
+            )
+            .catch(err => {
+                res.json({message: err});
+            }
+            );
+        }
+
+        else if(post.deleteReqCount>=3){
+         const blog=await PostModel.findById(req.body.id);
+            if(blog){
+                    blog.remove()
+                .then(data => {
+                    data.msg="post deleted";
+                    res.json(data);
+                }
+                )
+                .catch(err => {
+                    res.json({message: err});
+                }
+                );
+            }
+            else{
+                res.json({message:"post already deleted"});
+            }
+            
+        }
+        else{
+            const post2=new DeleteModel({
+                postID:req.body.id,
+                deleteReqCount:1,
+                modsMails:[req.mod.email]
+            });
+            post2.save()
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.json({message: err});
+            });
+
+        }
+    }
+    catch(err){
+        res.json({message:err});
+    }
+}
+);
+
 
 module.exports=routers;
