@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Zeno\",\r\n        \"email\" : \"74@gmail.com\",\r\n        \"password\": \"123\",\r\n        \"about\": \"not much\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Severus\",\r\n        \"mail\" : \"70@gmail.com\",\r\n        \"password\": \"123\",\r\n        \"about\": \"not much lol\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

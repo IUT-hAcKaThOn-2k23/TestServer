@@ -1,0 +1,52 @@
+{
+	"info": {
+		"_postman_id": "1cc9eb13-ce1d-4358-9951-458d56808cfb",
+		"name": "Search",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Fuzzy Search ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/search/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"search",
+						"4"
+					]
+				},
+				"description": "This API is for implementing Fuzzy Search.\n\nFuzzy search is a searching techniq that uses the natural behaviour of client searching.\n\n**The API takes:**\n\n*   *Keyword* as routing parameter.\n    \n\n**The API returns**\n\nArray of post objects whose title matches the keywords"
+			},
+			"response": []
+		},
+		{
+			"name": "Searching by tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/search/tag/rror",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"search",
+						"tag",
+						"rror"
+					]
+				},
+				"description": "This API searches blogs by tags.\n\n**The API takes keyword for TAGS to search as routing parameter .**\n\n**The API returns all the blogs having that tag**."
+			},
+			"response": []
+		}
+	]
+}

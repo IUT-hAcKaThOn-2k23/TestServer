@@ -102,6 +102,27 @@
 				"description": "The api si used to get all the comments of a specific post\n\n**Send the blog post id as a routing parameter**\n\nIt will return all the commnet objects of that specific post"
 			},
 			"response": []
+		},
+		{
+			"name": "Get blogs by page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/blog/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog",
+						"1"
+					]
+				},
+				"description": "This API is use to get the blogs by page\r\n**The API take as input**\r\nThe *page number* of which page needs to sent.\r\nTh API orders the posts by like count decreasing. Meaning the most liked post will be at the top."
+			},
+			"response": []
 		}
 	]
 }
