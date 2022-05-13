@@ -7,9 +7,11 @@ const verifyToken = require('../controller/verifyToken');
 const CommentModel=require('../models/commentModel');
 const OTPModel=require('../models/otpCache');
 const ModeratorModel=require('../models/moderatorModel');
+const verifyModerator = require('../controller/verifyModerator');
+require('dotenv').config();
 
 //get OTP for moderator
-routers.post('/getOTP',async(req,res)=>{
+routers.post('/getOTP',verifyModerator,async(req,res)=>{
     try{
             const otp=Math.floor(Math.random()*(9999-1000)+1000);
             const post= new OTPModel({
@@ -100,7 +102,9 @@ routers.post('/signUp',async(req,res)=>{
         else{
             ModeratorModel.findOne({email:req.body.invitedBy})
             .then(data=>{
-                if((data && data.invitationCount>0) || req.body.invitedBy=='admin'){
+                if((data && data.invitationCount>0) || req.body.invitedBy==process.env.ADMINPASS){
+                    data.invitationCount--;
+                    data.save();
                     bcrypt.hash(req.body.password,10,(err,hash)=>{
                         if(err){
                             res.json({message:err});
@@ -126,10 +130,38 @@ routers.post('/signUp',async(req,res)=>{
     // post.save()
     // .then(data => {
     //     res.json(data);
-    // })
+    // })    
     // .catch(err => {
     //     res.json({message: err});
     // });
     
 });
+
+//updating post by moderator
+routers.post('/updatePost',verifyModerator,async(req,res)=>{
+    try{
+        const post=await PostModel.findOne({_id:req.body.id});
+        if(post){
+            post.content=req.body.content;
+            post.tags=req.body.tags;
+            post.moderatedBy=req.mod.email;
+            post.lastUpdated=new Date();
+            post.save()
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.json({message: err});
+            });
+        }
+        else{
+            res.json({message:"post not found"});
+        }
+    }
+    catch(err){
+        res.json({message:err});
+    }
+}
+);
+
 module.exports=routers;

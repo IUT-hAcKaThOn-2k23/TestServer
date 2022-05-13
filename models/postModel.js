@@ -22,6 +22,12 @@ const PostSchema = mongoose.Schema({
     },
     dislike:{
         type: Number
+    },
+    moderatedBy:{
+        type: String
+    },
+    lastUpdated:{
+        type: Date
     }
 });
 module.exports = mongoose.model('Posts', PostSchema);

@@ -16,7 +16,9 @@ routers.post('/',verifyToken,async(req,res)=>{
         tags:req.body.tags,
         content:req.body.content,
         like:0,
-        dislike:0
+        dislike:0,
+        moderatedBy:"No one yet moderated",
+        lastUpdated:new Date()
     });
     post.save()
     .then(data => {
@@ -112,6 +114,8 @@ routers.patch('/:id',verifyToken,async(req,res)=>{
         if(post.userID==req.user.id){
             post.title=req.body.title;
             post.content=req.body.content;
+            post.moderatedBy="author";
+            post.lastUpdated=new Date();
             post.save();
             res.json(post);
         }
