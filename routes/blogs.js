@@ -98,6 +98,7 @@ routers.delete('/:id',verifyToken,async(req,res)=>{
         if(post.userID==req.user.id){
             post.remove();
             res.json({message:"post deleted"});
+            const post2=await CommentModel.deleteMany({postID:req.params.id});
         }
         else{
             res.json({message:"post not found or you are not authorizeda"});
