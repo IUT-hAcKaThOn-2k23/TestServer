@@ -174,6 +174,7 @@ routers.post('/deleteReq',verifyModerator,async(req,res)=>{
            post.modsMails.push(req.mod.email);
             post.save()
             .then(data => {
+                data.msg="request sent";
                 res.json(data);
             }
             )
