@@ -79,4 +79,6 @@ To run this project, you will need to add the following environment variables to
 - Retrieving Blog comments
 - Deleting a review 
 - Rating a user and a convinent rating method. 
+- Moderator user role. Moderator can edit content of blogs
+- OTP verification for moderator
 
