@@ -1,7 +1,7 @@
 
 # Blog API
 
-basic APIs for a simple Blog site.
+Basic APIs for a simple Blog site.
 
 
 
