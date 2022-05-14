@@ -16,6 +16,9 @@ const ModeratorSchema = mongoose.Schema({
     },
     invitationCount:{
         type: Number
+    },
+    verified:{
+        type: Boolean
     }
 });
 module.exports = mongoose.model('Moderators', ModeratorSchema);

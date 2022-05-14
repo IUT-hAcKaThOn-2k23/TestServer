@@ -9,12 +9,14 @@ const OTPModel=require('../models/otpCache');
 const ModeratorModel=require('../models/moderatorModel');
 const DeleteModel=require('../models/deleteRequest');
 const verifyModerator = require('../controller/verifyModerator');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 //get OTP for moderator
-routers.post('/getOTP',verifyModerator,async(req,res)=>{
+routers.post('/getOTP',async(req,res)=>{
+    const otp=Math.floor(Math.random()*(9999-1000)+1000);
     try{
-            const otp=Math.floor(Math.random()*(9999-1000)+1000);
+            
             const post= new OTPModel({
                 otp:otp,
                 date:new Date()
@@ -27,6 +29,27 @@ routers.post('/getOTP',verifyModerator,async(req,res)=>{
     catch(err){
         res.json({message:err});
     }
+    //making a transporter to send otp to moderator
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD
+        }
+      });
+      const mailOptions = {
+        from: process.env.EMAIL,
+        to: req.body.email,
+        subject: 'OTP for Moderator',
+        text: 'Your OTP is '+ otp + " " + "This OTP is valid for 1 day"
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
 }
 );
 
@@ -93,7 +116,8 @@ routers.post('/signUp',async(req,res)=>{
         email: req.body.mail,             
         password: req.body.password,
         invitedBy: req.body.invitedBy,
-        invitationCount: 3 
+        invitationCount: 3,
+        verified: false 
     });
     ModeratorModel.findOne({email:req.body.mail})
     .then(data=>{
