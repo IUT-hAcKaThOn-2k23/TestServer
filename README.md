@@ -66,6 +66,10 @@ To run this project, you will need to add the following environment variables to
 
 `ADMINPASS`: use this to open the initial account for moderator.
 
+`EMAIL`:The gmail that will be used to send verification mail
+
+`PASSWORD`: The password of the gmail mentioned right above
+
 
 ## API Features
 
@@ -83,5 +87,6 @@ To run this project, you will need to add the following environment variables to
 - Rating a user and a convinent rating method. 
 - Moderator user role. Moderator can edit content of blogs
 - OTP verification for moderator
+- Email verification for moderator.
 - A post will be deleted if three different moderators agree to delete it
 
