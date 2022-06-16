@@ -45,11 +45,14 @@ describe('Signup', () => {
     }
     );
     it('should return a token if mail doesnt exits ', () => {
+        //generating random email
+        let mail = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + "@gmail.com";
+
         return request(app)
             .post('/auth/signUp')
             .send({
                 name: "Severus",
-                mail: "newmail@gmail.com",
+                mail: mail,
                 password: "123",
                 about: "not much lol"
             })
@@ -58,8 +61,7 @@ describe('Signup', () => {
                 //checking if the new object is inserted in monogdb
                 Usermodel.findOne({ email: res.body.email })
                     .then(data => {
-                        expect(data).toHaveProperty('name');
-                        expect(data['email']).toBe('newmail@gmail.com');
+                        expect(data['email']).toBe(mail);
                     }
                     );
 
