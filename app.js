@@ -63,3 +63,4 @@ mongoose.connect(process.env.DB_CONNECTION,
 //how do we start listening to the server
 app.listen(5001);
 console.log('listening on port 5001');
+module.exports=app;
