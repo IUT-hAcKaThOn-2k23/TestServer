@@ -2,9 +2,11 @@ const request = require('supertest');
 const app = require('../app');
 const jwt = require('jsonwebtoken');
 const Usermodel = require('../models/userModel');
+const PostModel=require('../models/postModel');
 jest.setTimeout(20000);
+
 //testing authentication
-describe('Authentication', () => {
+describe('Login', () => {
     it('should return a token', () => {
         return request(app)
             .post('/auth/login')
@@ -68,6 +70,51 @@ describe('Signup', () => {
             }
             );
 
+    }
+    );
+}
+);
+//getting all the blogs
+describe('GET all the blogs', () => {
+    it('should return all the blogs', async () => {
+        const posts = await PostModel.aggregate([
+            { $sort: { like: -1 } },
+            { $limit: 10 }
+        ]);
+        let noOfPosts = posts.length;
+        return request(app)
+            .get('/blog/')
+            .expect(200)
+            .then(res => {
+                expect(res.body.length).toBe(noOfPosts);
+                //expect(true).toBe(true);
+                //expect(res.body).toHaveSize(noOfPosts);
+
+            }
+            );
+    }
+    );
+}
+);
+//getting blogs by pagination
+describe('GET blogs by pagination', () => {
+    it('should return blogs by pagination', async () => {
+        const posts = await PostModel.aggregate([
+            { $sort: { like: -1 } },
+            { $skip: (1 - 1) * 5 },
+            { $limit: 5 }
+        ]);
+        let noOfPosts = posts.length;
+        return request(app)
+            .get('/blog/1')
+            .expect(200)
+            .then(res => {
+                expect(res.body.length).toBe(noOfPosts);
+                //expect(true).toBe(true);
+                //expect(res.body).toHaveSize(noOfPosts);
+
+            }
+            );
     }
     );
 }
