@@ -2,9 +2,16 @@ const request = require('supertest');
 const app = require('../app');
 const jwt = require('jsonwebtoken');
 const Usermodel = require('../models/userModel');
-const PostModel=require('../models/postModel');
+const PostModel = require('../models/postModel');
 jest.setTimeout(20000);
-
+const testBlog = {
+    //creating a random string for the title
+    title: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+    //creating a random string for the content
+    content: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+    //creating a random string for email
+    email: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + '@gmail.com'
+}
 //testing authentication
 describe('Login', () => {
     it('should return a token', () => {
@@ -119,3 +126,57 @@ describe('GET blogs by pagination', () => {
     );
 }
 );
+//posting a blog
+describe('POST a blog', () => {
+    it('should return a blog', async () => {
+        return request(app)
+            .post('/blog/')
+            .set('auth-token', jwt.sign({ email: testBlog.email,name:'hghg',id:'kl' }, process.env.TOKEN))
+            .send({
+                userID: "lol",
+                userEmail: testBlog.email,
+                title: testBlog.title,
+                tags: ["tag1", "tag2"],
+                content: testBlog.content,
+                like: 0,
+                dislike: 0,
+                moderatedBy: "No one yet moderated",
+                lastUpdated: new Date()
+            })
+            .expect(200)
+            .then(res => {
+                expect(res.body['title']).toBe(testBlog.title);
+                expect(res.body['content']).toBe(testBlog.content);
+                expect(res.body['userEmail']).toBe(testBlog.email);
+            }
+            );
+    }
+    );
+}
+);
+//updating likes and dislikes
+describe('PUT likes and dislikes', () => {
+    it('should return a blog', async () => {
+        return request(app)
+            .put('/blog/like/1')
+            .set('auth-token', jwt.sign({ email: testBlog.email,name:'hghg',id:'kl' }, process.env.TOKEN))
+            .send({
+                userID: "lol",
+                userEmail: testBlog.email,
+                like: 1,
+                dislike: 0,
+                moderatedBy: "No one yet moderated",
+                lastUpdated: new Date()
+            })
+            .expect(200)
+            .then(res => {
+                expect(res.body['like']).toBe(1);
+                expect(res.body['dislike']).toBe(0);
+            }
+            );
+    }
+    );
+}
+);
+
+
