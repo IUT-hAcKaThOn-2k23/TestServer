@@ -131,7 +131,7 @@ describe('POST a blog', () => {
     it('should return a blog', async () => {
         return request(app)
             .post('/blog/')
-            .set('auth-token', jwt.sign({ email: testBlog.email,name:'hghg',id:'kl' }, process.env.TOKEN))
+            .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
             .send({
                 userID: "lol",
                 userEmail: testBlog.email,
@@ -156,23 +156,65 @@ describe('POST a blog', () => {
 );
 //updating likes and dislikes
 describe('PUT likes and dislikes', () => {
-    it('should return a blog', async () => {
+    it('should increase the like', async () => {
+        const post = await PostModel.findById('62adea1191f60a4c92224432');
         return request(app)
             .patch('/blog/react/62adea1191f60a4c92224432')
-            .set('auth-token', jwt.sign({ email: testBlog.email,name:'hghg',id:'kl' }, process.env.TOKEN))
+            .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
             .send({
-                like:true
+                like: true
             })
             .expect(200)
-            .then(res => async () => {
-                const post=await PostModel.findById('62adea1191f60a4c92224432');
-                expect(post['like']).toBe(1);
-
+            .then(res => {
+                expect(res.body['like']).toBe(post['like'] + 1);
             }
             );
     }
     );
+    it('should increase the dislike', async () => {
+        const post = await PostModel.findById('62adea1191f60a4c92224432');
+        return request(app)
+            .patch('/blog/react/62adea1191f60a4c92224432')
+            .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
+            .send({
+                dislike: true
+            })
+            .expect(200)
+            .then(res => {
+                expect(res.body['dislike']).toBe(post['dislike'] + 1);
+            }
+            );
+
+    }
+    );
+});
+//deleting a blog
+describe('DELETE a blog', () => {
+    it('should delete a blog', async () => {
+        const post = await PostModel.aggregate([{ $sample: { size: 1 } }])
+        console.log(post);
+        id=post[0]['_id'].toString();
+        console.log(id);
+        if (id!= '62adea1191f60a4c92224432') {
+            return request(app)
+                .delete('/blog/' + id)
+                .set('auth-token', jwt.sign({ id:post[0].userID, name:"lol",email:post[0].userEmail }, process.env.TOKEN))
+                .expect(200)
+                .then(res => {
+                    expect(res.body['message']).toBe("post deleted");
+                }
+                );
+        }
+        else {
+            console.log("no post to delete");
+        }
+        const post2 = await PostModel.findById(post[0]._id);
+        expect(post2).toBe(null);
+    }
+    );
 }
 );
+
+
 
 
