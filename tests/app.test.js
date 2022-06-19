@@ -191,8 +191,10 @@ describe('PUT likes and dislikes', () => {
 //deleting a blog
 describe('DELETE a blog', () => {
     it('should delete a blog', async () => {
+        //getting random blog 
         const post = await PostModel.aggregate([{ $sample: { size: 1 } }])
         console.log(post);
+        //converting the id obect to string
         id=post[0]['_id'].toString();
         console.log(id);
         if (id!= '62adea1191f60a4c92224432') {
@@ -209,6 +211,7 @@ describe('DELETE a blog', () => {
             console.log("no post to delete");
         }
         const post2 = await PostModel.findById(post[0]._id);
+        //checking if the post is deleted
         expect(post2).toBe(null);
     }
     );
