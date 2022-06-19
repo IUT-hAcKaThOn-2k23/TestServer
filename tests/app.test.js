@@ -158,20 +158,16 @@ describe('POST a blog', () => {
 describe('PUT likes and dislikes', () => {
     it('should return a blog', async () => {
         return request(app)
-            .put('/blog/like/1')
+            .patch('/blog/react/62adea1191f60a4c92224432')
             .set('auth-token', jwt.sign({ email: testBlog.email,name:'hghg',id:'kl' }, process.env.TOKEN))
             .send({
-                userID: "lol",
-                userEmail: testBlog.email,
-                like: 1,
-                dislike: 0,
-                moderatedBy: "No one yet moderated",
-                lastUpdated: new Date()
+                like:true
             })
             .expect(200)
-            .then(res => {
-                expect(res.body['like']).toBe(1);
-                expect(res.body['dislike']).toBe(0);
+            .then(res => async () => {
+                const post=await PostModel.findById('62adea1191f60a4c92224432');
+                expect(post['like']).toBe(1);
+
             }
             );
     }
