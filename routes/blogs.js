@@ -92,11 +92,11 @@ routers.get('/:id',async(req,res)=>{
     }
 });
 //deleting a blog
-
+routers.delete('/:id',verifyToken,async(req,res)=>{
+    try{
         const post=await PostModel.findById(req.params.id);
         if(post.userID==req.user.id){
-            post.remove();routers.delete('/:id',verifyToken,async(req,res)=>{
-    try{
+            post.remove();
             res.json({message:"post deleted"});
             const post2=await CommentModel.deleteMany({postID:req.params.id});
         }
