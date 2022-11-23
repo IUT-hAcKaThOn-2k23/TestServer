@@ -7,6 +7,9 @@ const OTPSchema = mongoose.Schema({
     },
     date:{
         type: Date 
+    },
+    otpFor:{
+        type: String
     }
 });
 module.exports = mongoose.model('OTPCache', OTPSchema);

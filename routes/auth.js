@@ -18,7 +18,11 @@ routers.post('/login',async(req,res)=>{
                     id:user._id,
                     name:user.name,
                     email:user.email
-                },process.env.TOKEN);
+                },process.env.TOKEN,
+                {
+                    expiresIn: '1h',
+                    algorithm: 'HS256'
+                });
                 res.header('auth-token',token).send(token);
                 return res.json({status:'ok' , user:token , role: 'user'});//user is the payload 
             }
@@ -48,7 +52,6 @@ routers.post('/signUp',async(req,res)=>{
     .then(data=>{
         if(data){
             res.json({message:"email already exists"});
-
         }
         else{
             bcrypt.hash(req.body.password,10,(err,hash)=>{
