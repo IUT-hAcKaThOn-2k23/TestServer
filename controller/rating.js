@@ -10,7 +10,7 @@ module.exports = async function ratingSystem(req, res, next){
                 }]);
         res.json(posts);
         console.log(posts);
-        next();
+        next();  
         
     } catch(err){
         res.json({message:err});
