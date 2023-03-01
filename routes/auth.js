@@ -80,4 +80,32 @@ routers.post('/signUp',async(req,res)=>{
     // });
     
 });
+
+// is logged in
+routers.post('/isLoggedIn',async(req,res)=>{
+    try{
+        const token=req.body.token;
+        if(token){
+            const verified=jwt.verify(token,process.env.TOKEN);
+            if(verified){
+                const user=await Usermodel.findById(verified.id);
+                if(user){
+                    res.json({status:true , user:user.name , role: 'user'});
+                }
+                else{
+                    res.json({status:false , user:'error'});
+                }
+            }
+            else{
+                res.json({status:'error' , user:'error'});
+            }
+        }
+        else{
+            res.json({status:'error' , user:'error'});
+        }
+    }
+    catch(err){
+        res.json({status:'error' , user:'error'});
+    }
+});
 module.exports=routers;
