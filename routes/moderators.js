@@ -13,8 +13,8 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 //get OTP for moderator
-routers.post('/getOTP', verifyModerator, async (req, res) => {
-    const otp = Math.floor(Math.random() * (9999 - 1000) + 1000);
+routers.post('/getOTP', async (req, res) => {
+    const otp = Math.floor(Math.random() * (999999 - 100000) + 100000);
     try {
         if (req.mod.verified == null || req.mod.verified == true) {
             const post = new OTPModel({
@@ -28,7 +28,7 @@ routers.post('/getOTP', verifyModerator, async (req, res) => {
                 })
         }
         else {
-            res.json("not a verified moderator itself");
+            res.json("otp engine busy");
         }
     }
     catch (err) {
