@@ -10,26 +10,25 @@ const ModeratorModel = require('../models/moderatorModel');
 const DeleteModel = require('../models/deleteRequest');
 const verifyModerator = require('../controller/verifyModerator');
 const nodemailer = require('nodemailer');
+const Usermodel = require('../models/userModel');
 require('dotenv').config();
 
 //get OTP for moderator
 routers.post('/getOTP', async (req, res) => {
     const otp = Math.floor(Math.random() * (999999 - 100000) + 100000);
     try {
-        if (req.mod.verified == null || req.mod.verified == true) {
             const post = new OTPModel({
                 otp: otp,
                 date: new Date(),
                 otpFor: req.body.invitedMail
             });
+            console.log(post);
             await post.save()
                 .then(data => {
                     res.json(data.otp);
-                })
-        }
-        else {
-            res.json("otp engine busy");
-        }
+                }).catch(err => {
+                    console.log(err);
+                });
     }
     catch (err) {
         res.json({ message: err });
@@ -59,17 +58,18 @@ routers.post('/getOTP', async (req, res) => {
 );
 
 //verify OTP for moderator
-routers.post('/verifyOTP',verifyModerator, async (req, res) => {
+routers.post('/verifyOTP', async (req, res) => {
     try {
         const otp = await OTPModel.findOne({ otp: req.body.otp });
-        if (otp && otp.otpFor == req.mod.email) {
+        if (otp && otp.otpFor == req.body.email) {
             if (otp.date.getTime() + 8.64e+7 > new Date().getTime()) {
                 res.json({ message: "OTP verified" });
                 otp.remove();
-                const mod = await ModeratorModel.findOne
-                    ({ email: req.mod.email });
-                mod.verified = true;
-                await mod.save();
+                const validUser = await Usermodel.updateOne({email: req.body.email}, {$set: {verified: true}}) 
+                // const mod = await ModeratorModel.findOne
+                //     ({ email: req.mod.email });
+                // mod.verified = true;
+                // await mod.save();
             }
             else {
                 res.json({ message: "OTP expired" });
@@ -80,7 +80,7 @@ routers.post('/verifyOTP',verifyModerator, async (req, res) => {
         }
     }
     catch (err) {
-        res.json({ message: err });
+        console.log(err);
     }
 }
 );

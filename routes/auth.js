@@ -46,7 +46,8 @@ routers.post('/signUp',async(req,res)=>{
         rating: 1,
         email: req.body.mail,
         password: req.body.password,
-        about: req.body.about
+        about: req.body.about,
+        verified: false
     });
     Usermodel.findOne({email:req.body.mail})
     .then(data=>{
