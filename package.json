@@ -1,0 +1,37 @@
+{
+  "name": "blogapi_for_kernel",
+  "version": "1.0.0",
+  "description": "Simple APIs for a simple Blog Site.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakibesrat71/BlogAPI_for_KERNEL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sakibesrat71/BlogAPI_for_KERNEL/issues"
+  },
+  "homepage": "https://github.com/sakibesrat71/BlogAPI_for_KERNEL#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "jest-config": "^29.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.1",
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.16"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3",
+    "supertest": "^6.3.3"
+  }
+}

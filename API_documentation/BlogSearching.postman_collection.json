@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "4cac1c8e-d931-4faf-b8d1-6e5fccad643e",
+		"name": "BlogSearching",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Searching By regex",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\":\"the\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/blog/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"blog",
+						"search"
+					]
+				},
+				"description": "This API takes a query and matches the pattern of title within the database and sends all the matched blog's ID and title.\r\nLater to get the whole blog. Yu can use the **Getting blog by ID** api"
+			},
+			"response": []
+		}
+	]
+}
