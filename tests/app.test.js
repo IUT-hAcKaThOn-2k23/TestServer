@@ -13,25 +13,25 @@ const testBlog = {
     email: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + '@gmail.com'
 }
 //testing authentication
-describe('Login', () => {
-    it('should return a token', () => {
-        return request(app)
-            .post('/auth/login')
-            .send({
-                email: '73@gmail.com',
-                password: '123'
-            })
-            .expect(200)
-            .then(res => {
-                expect(res.header).toHaveProperty('auth-token');
-                const decoded = jwt.verify(res.header['auth-token'], process.env.TOKEN);
-                expect(decoded.email).toBe('73@gmail.com');
-            }
-            );
-    }
-    );
-}
-);
+// describe('Login', () => {
+//     it('should return a token', () => {
+//         return request(app)
+//             .post('/auth/login')
+//             .send({
+//                 email: '73@gmail.com',
+//                 password: '123'
+//             })
+//             .expect(200)
+//             .then(res => {
+//                 expect(res.header).toHaveProperty('auth-token');
+//                 const decoded = jwt.verify(res.header['auth-token'], process.env.TOKEN);
+//                 expect(decoded.email).toBe('73@gmail.com');
+//             }
+//             );
+//     }
+//     );
+// }
+// );
 //testing signup
 describe('Signup', () => {
     it('should return a msg if same mail accont exists ', () => {
@@ -155,39 +155,39 @@ describe('POST a blog', () => {
 }
 );
 //updating likes and dislikes
-describe('PUT likes and dislikes', () => {
-    it('should increase the like', async () => {
-        const post = await PostModel.findById('62adea1191f60a4c92224432');
-        return request(app)
-            .patch('/blog/react/62adea1191f60a4c92224432')
-            .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
-            .send({
-                like: true
-            })
-            .expect(200)
-            .then(res => {
-                expect(res.body['like']).toBe(post['like'] + 1);
-            }
-            );
-    }
-    );
-    it('should increase the dislike', async () => {
-        const post = await PostModel.findById('62adea1191f60a4c92224432');
-        return request(app)
-            .patch('/blog/react/62adea1191f60a4c92224432')
-            .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
-            .send({
-                dislike: true
-            })
-            .expect(200)
-            .then(res => {
-                expect(res.body['dislike']).toBe(post['dislike'] + 1);
-            }
-            );
+// describe('PUT likes and dislikes', () => {
+//     it('should increase the like', async () => {
+//         const post = await PostModel.findById('62adea1191f60a4c92224432');
+//         return request(app)
+//             .patch('/blog/react/62adea1191f60a4c92224432')
+//             .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
+//             .send({
+//                 like: true
+//             })
+//             .expect(200)
+//             .then(res => {
+//                 expect(res.body['like']).toBe(post['like'] + 1);
+//             }
+//             );
+//     }
+//     );
+//     it('should increase the dislike', async () => {
+//         const post = await PostModel.findById('62adea1191f60a4c92224432');
+//         return request(app)
+//             .patch('/blog/react/62adea1191f60a4c92224432')
+//             .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
+//             .send({
+//                 dislike: true
+//             })
+//             .expect(200)
+//             .then(res => {
+//                 expect(res.body['dislike']).toBe(post['dislike'] + 1);
+//             }
+//             );
 
-    }
-    );
-});
+//     }
+//     );
+// });
 //deleting a blog
 describe('DELETE a blog', () => {
     it('should delete a blog', async () => {

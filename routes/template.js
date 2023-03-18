@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../controller/verifyToken');
 const CommentModel=require('../models/commentModel');
-const Template=require('../models/template');
+const TemplateModel=require('../models/template');
 
 
 // post cv data
@@ -50,6 +50,7 @@ routers.post('/addTemplate',async(req,res)=>{
     });
     try{
         const savedTemplate=await template.save();
+        console.log("added yay")
         res.json(savedTemplate);
     }
     catch(err){
@@ -57,6 +58,17 @@ routers.post('/addTemplate',async(req,res)=>{
         res.json({message:err});
     }
 })
+
+routers.get('/displayRoutes', async (req, res) => {
+    try {
+      const myDocuments = await TemplateModel.find({}, 'image');
+      res.send(myDocuments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  });
+    
 
 
 
