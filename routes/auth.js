@@ -120,12 +120,7 @@ routers.post('/isLoggedIn',async(req,res)=>{
     }
 
     
-routers.get('/template', verifyToken, async(req, res)=>{
-    console.log("here")
-    const user = req.user
-    console.log(decoded)
-    res.send(user)
-})
+
 
 });
 module.exports=routers;

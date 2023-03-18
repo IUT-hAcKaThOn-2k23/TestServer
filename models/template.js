@@ -9,9 +9,10 @@ const TemplateSchema = mongoose.Schema({
         type: String
     }],
     image: {
-        type: String,
+        type: Object,
         required: false
     },
+    
     html:{
         type: String,
         required: false
