@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
@@ -8,27 +9,17 @@ require('dotenv').config();
 //middlewares
 app.use(cors());
 app.use(express.json());
-//app.use(fileUpload());
-// const {protect} = require("./Middleware/AuthMiddleware");
-// //import routes 
-// const postroutes = require('./routes/posts');
-// app.use('/post',postroutes);
 
-// const reserveroutes = require('./routes/restaurentDash');
-// app.use('/reserve',reserveroutes);
+mongoose.set('strictQuery', true);
 
-// const reserving = require('./routes/reserveAPI');
-// app.use('/offer', reserving);
-
-// const userRoutes = require('./routes/userRoutes');
-// app.use("/api/users", userRoutes);
-
-
-// app.use('/posts',()=>{
-    
-//     console.log('example of middleware');
-// });
-//you have the ability to create routes
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+});
 
 //authentication module
 const authRoutes = require('./routes/auth');
@@ -59,11 +50,29 @@ const templateFunc = require('./routes/template');
 app.use('/template',templateFunc);
 
 //connect to the db 
-mongoose.connect(process.env.DB_CONNECTION,
-{useNewUrlParser: true},
-()=>{
-    console.log('connected to db');
-});
+// mongoose.connect(process.env.DB_CONNECTION,
+// {   useNewUrlParser: true,
+//     serverSelectionTimeoutMS: 300000
+// },
+// function (err, res) {
+//     try {
+//         console.log('Connected to Database');
+//     } catch (err) {
+//         throw err;
+//     }
+// })
+
+const connectionParams={
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+}
+
+mongoose.connect('mongodb://salmanjensen:sal@ac-36yxasj-shard-00-00.yx3sl49.mongodb.net:27017,ac-36yxasj-shard-00-01.yx3sl49.mongodb.net:27017,ac-36yxasj-shard-00-02.yx3sl49.mongodb.net:27017/?ssl=true&replicaSet=atlas-11gshm-shard-0&authSource=admin&retryWrites=true&w=majority',
+    connectionParams,
+)
+.then(()=>console.log('connected'))
+.catch(e=>console.log(e));
+
 //how do we start listening to the server
 app.listen(5001);
 // create a get route to welcome

@@ -5,14 +5,14 @@ const TemplateSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tag: {
-        type: String,
-        required: true
-    },
+    tags:[{
+        type: String
+    }],
     image: {
-        type: String,
+        type: Object,
         required: false
     },
+    
     html:{
         type: String,
         required: false

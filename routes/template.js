@@ -40,10 +40,12 @@ routers.post('/cvData',verifyToken,async(req,res)=>{
 
 // adding CV template
 routers.post('/addTemplate',async(req,res)=>{
-    const template=new Template({
-        templateId: req.body.templateId,
-        tag: req.body.tag,
-        image: req.body.image,
+    const {postImage:image, tags, id} = req.body
+    console.log(image, id, tags)
+    const template=new TemplateModel({
+        templateId: id,
+        tag: tags,
+        image: image,
         html: req.body.html
     });
     try{
@@ -51,6 +53,7 @@ routers.post('/addTemplate',async(req,res)=>{
         res.json(savedTemplate);
     }
     catch(err){
+        console.log(err)
         res.json({message:err});
     }
 })
