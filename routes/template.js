@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../controller/verifyToken');
 const CommentModel=require('../models/commentModel');
+const Template=require('../models/template');
 
 
 // post cv data
