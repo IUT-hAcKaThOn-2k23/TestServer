@@ -195,12 +195,12 @@ describe('DELETE a blog', () => {
         const post = await PostModel.aggregate([{ $sample: { size: 1 } }])
         console.log(post);
         //converting the id obect to string
-        id=post[0]['_id'].toString();
+        id = post[0]['_id'].toString();
         console.log(id);
-        if (id!= '62adea1191f60a4c92224432') {
+        if (id != '62adea1191f60a4c92224432') {
             return request(app)
                 .delete('/blog/' + id)
-                .set('auth-token', jwt.sign({ id:post[0].userID, name:"lol",email:post[0].userEmail }, process.env.TOKEN))
+                .set('auth-token', jwt.sign({ id: post[0].userID, name: "lol", email: post[0].userEmail }, process.env.TOKEN))
                 .expect(200)
                 .then(res => {
                     expect(res.body['message']).toBe("post deleted");
@@ -217,6 +217,35 @@ describe('DELETE a blog', () => {
     );
 }
 );
+
+// cv data input testing
+describe('POST cv data', () => {
+    it('should return a cv data', async () => {
+        return request(app)
+            .post('/template/cvData')
+            .set('auth-token', jwt.sign({ email: testBlog.email, name: 'hghg', id: 'kl' }, process.env.TOKEN))
+            .send({
+                name: "req.body.name",
+                label: "req.body.label",
+                image: "req.body.image",
+                email: "req.body.email",
+                phone: "req.body.phone",
+                url: "req.body.url",
+                summary: "req.body.summary",
+                location: {
+                    address: "req.body.location.address",
+                    postalCode: "req.body.location.postalCode",
+                    city: "req.body.location.city",
+                    countryCode: "req.body.location.countryCode",
+                    region: "req.body.location.region"
+                },
+                relExp: "req.body.relExp",
+                totalExp: "req.body.totalExp"
+            })
+            .expect(200)
+    }
+    );
+});
 
 
 
