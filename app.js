@@ -62,5 +62,10 @@ mongoose.connect(process.env.DB_CONNECTION,
 });
 //how do we start listening to the server
 app.listen(5001);
+// create a get route to welcome
+app.get('/',(req,res)=>{
+    res.send('we are on home');
+    res.status(200);
+});
 console.log('listening on port 5001');
 module.exports=app;
