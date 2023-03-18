@@ -1,6 +1,6 @@
 const express = require('express');
 const routers=express.Router();
-const Usermodel=require('../models/userModel');
+const Usermodel = require('../models/userModel')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -38,6 +38,8 @@ routers.post('/login',async(req,res)=>{
 
     }
 });
+
+
 //signing up
 routers.post('/signUp',async(req,res)=>{
     console.log(req.body);
@@ -49,29 +51,37 @@ routers.post('/signUp',async(req,res)=>{
         about: req.body.about,
         verified: false
     });
-    Usermodel.findOne({email:req.body.mail})
-    .then(data=>{
-        if(data){
-            res.json({message:"email already exists"});
-        }
-        else{
-            bcrypt.hash(req.body.password,10,(err,hash)=>{
-                if(err){
-                    res.json({message:err});
-                }
-                else{
-                    post.password=hash;
-                }
-                post.save()
-                .then(data => {
-                    res.json(data);
-                })
-                .catch(err => {
-                    res.json({message: err});
-                });
-            }); 
-        }
-    });
+    try{
+        console.log("here")
+        Usermodel.findOne({email:req.body.mail})
+        .then(data=>{
+            console.log(data)
+            if(data){
+                res.json({message:"email already exists"});
+            }
+            else{
+                bcrypt.hash(req.body.password,10,(err,hash)=>{
+                    if(err){
+                        res.json({message:err});
+                    }
+                    else{
+                        post.password=hash;
+                    }
+                    post.save()
+                    .then(data => {
+                        res.json(data);
+                    })
+                    .catch(err => {
+                        res.json({message: err});
+                    });
+                }); 
+            }
+        })
+    }
+
+    catch(e){
+        console.log(e)
+    }
     // post.save()
     // .then(data => {
     //     res.json(data);
@@ -108,5 +118,14 @@ routers.post('/isLoggedIn',async(req,res)=>{
     catch(err){
         res.json({status:'error' , user:'error'});
     }
+
+    
+routers.get('/template', verifyToken, async(req, res)=>{
+    console.log("here")
+    const user = req.user
+    console.log(decoded)
+    res.send(user)
+})
+
 });
 module.exports=routers;
