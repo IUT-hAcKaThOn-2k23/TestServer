@@ -54,6 +54,10 @@ app.use('/search',searchFunc);
 const moderatorFunc = require('./routes/moderators');
 app.use('/moderator',moderatorFunc);
 
+//template functions
+const templateFunc = require('./routes/template');
+app.use('/template',templateFunc);
+
 //connect to the db 
 mongoose.connect(process.env.DB_CONNECTION,
 {useNewUrlParser: true},
