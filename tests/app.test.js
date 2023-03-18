@@ -247,6 +247,22 @@ describe('POST cv data', () => {
     );
 });
 
+// post a template
+describe('POST a template', () => {
+    it('should return a template', async () => {
+        return request(app)
+            .post('/template/addTemplate')
+            .send({
+                templateId: "req.body.templateId",
+                tag: "req.body.tag",
+                image: "req.body.image",
+                html: "req.body.html"
+            })
+            .expect(200)
+    }
+    );
+});
+
 
 
 

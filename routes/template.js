@@ -37,4 +37,23 @@ routers.post('/cvData',verifyToken,async(req,res)=>{
     }
 });
 
+// adding CV template
+routers.post('/addTemplate',async(req,res)=>{
+    const template=new Template({
+        templateId: req.body.templateId,
+        tag: req.body.tag,
+        image: req.body.image,
+        html: req.body.html
+    });
+    try{
+        const savedTemplate=await template.save();
+        res.json(savedTemplate);
+    }
+    catch(err){
+        res.json({message:err});
+    }
+})
+
+
+
 module.exports=routers;
