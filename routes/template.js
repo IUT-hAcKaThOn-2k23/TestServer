@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const verifyToken = require('../controller/verifyToken');
 const CommentModel=require('../models/commentModel');
 const Template=require('../models/template');
+// const spellCheck = require('spell-checker-js');
 
 
 // post cv data
@@ -58,6 +59,13 @@ routers.post('/addTemplate',async(req,res)=>{
     }
 })
 
-
+// spell check route
+// routers.post('/spellCheck',async(req,res)=>{
+//     const {text}=req.body;
+    
+//     const spell = new spellCheck();
+//     const result=spell.check(text);
+//     res.json(result);
+// });
 
 module.exports=routers;

@@ -10,7 +10,7 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 
-const spell = require('spell-checker-js')
+// const spell = require('spell-checker-js')
 
 mongoose.set('strictQuery', true);
 
@@ -66,12 +66,12 @@ app.use('/template',templateFunc);
 
  
 // Load dictionary
-spell.load('en')
+// spell.load('en')
  
 // Checking text
-const check = spell.check('Some text to check, blahblahblah, olololo, fuck yobshsbd, Malenia, Unless Thou Shouldst take the crown')
+// const check = spell.check('Some text to check, blahblahblah, olololo, fuck yobshsbd, Malenia, Unless Thou Shouldst take the crown')
  
-console.log(check)
+// console.log(check)
 
 const connectionParams={
     useNewUrlParser: true,

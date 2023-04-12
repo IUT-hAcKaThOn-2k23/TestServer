@@ -263,6 +263,24 @@ describe('POST a template', () => {
     );
 });
 
+// spell check route
+describe('Spell check route', () => {
+    it('should return 200', async () => {
+        return request(app)
+            .post('/spellCheck')
+            .send({
+                text: "hhh kk hello"
+            })
+            .expect(200)
+            .then(res => {
+                expect(res.body).toBe(["hhh", "kk"]);
+            })
+    }
+    );
+});
+
+
+
 
 
 
