@@ -20,7 +20,7 @@ const otpGeneration = async (req, res) => {
         }
     }
     catch (err) {
-        res.json({ message: err });
+        res.json({ message: err });  
     }
     //making a transporter to send otp to moderator
     const transporter = nodemailer.createTransport({
