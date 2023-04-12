@@ -5,8 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../controller/verifyToken');
 const CommentModel=require('../models/commentModel');
-const Template=require('../models/template');
-// const spellCheck = require('spell-checker-js');
+const TemplateModel=require('../models/template');
 
 
 // post cv data
@@ -51,6 +50,7 @@ routers.post('/addTemplate',async(req,res)=>{
     });
     try{
         const savedTemplate=await template.save();
+        console.log("added yay")
         res.json(savedTemplate);
     }
     catch(err){
@@ -59,13 +59,17 @@ routers.post('/addTemplate',async(req,res)=>{
     }
 })
 
-// spell check route
-// routers.post('/spellCheck',async(req,res)=>{
-//     const {text}=req.body;
+routers.get('/displayRoutes', async (req, res) => {
+    try {
+      const myDocuments = await TemplateModel.find({}, 'image');
+      res.send(myDocuments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  });
     
-//     const spell = new spellCheck();
-//     const result=spell.check(text);
-//     res.json(result);
-// });
+
+
 
 module.exports=routers;

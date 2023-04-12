@@ -1,7 +1,7 @@
 
-# Blog API
+# API for Code Rush
 
-Basic APIs for a simple Blog site.
+Basic APIs for a simple CV generation site.
 
 
 
@@ -10,17 +10,14 @@ Basic APIs for a simple Blog site.
 
 [UserFunctions](https://documenter.getpostman.com/view/17979225/UyxbppQ7)
 
-[BlogSearching](https://documenter.getpostman.com/view/17979225/UyxbppQE)
+[TemplateSearching](https://documenter.getpostman.com/view/17979225/UyxbppQE)
 
 [BlogPosting](https://documenter.getpostman.com/view/17979225/UyxbppQF)
-
-[BlogManipulation](https://documenter.getpostman.com/view/17979225/UyxbppUY)
 
 [Auth](https://documenter.getpostman.com/view/17979225/UyxbppUZ)
 
 [Search](https://documenter.getpostman.com/view/17979225/UyxdLpec)
 
-[Moderator](https://documenter.getpostman.com/view/17979225/UyxeqUy7)
 
 
 
