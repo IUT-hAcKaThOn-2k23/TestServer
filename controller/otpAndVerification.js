@@ -8,7 +8,7 @@ const otpGeneration = async (req, res) => {
             const post = new OTPModel({
                 otp: otp,
                 date: new Date(),
-                otpFor: req.body.invitedMail
+                otpFor: req.body.invitedMail  
             });
             await post.save()
                 .then(data => {
